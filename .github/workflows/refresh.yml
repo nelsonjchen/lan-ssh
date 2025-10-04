@@ -12,9 +12,6 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v5
 
-      - name: Add github.com to known_hosts
-        run: ssh-keyscan github.com >> ~/.ssh/known_hosts
-
       - name: Refresh keys
         run: |
           GIT_SSH_COMMAND='ssh -i keys/id_rsa -o IdentitiesOnly=yes' git clone git@github.com:nelsonjchen/lan-ssh.git ./temp_clone_rsa
