@@ -12,9 +12,6 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v5
 
-      - name: Add github.com to known_hosts
-        run: ssh-keyscan github.com >> ~/.ssh/known_hosts
-
       - name: Refresh keys
         run: |
           chmod 600 keys/id_rsa
