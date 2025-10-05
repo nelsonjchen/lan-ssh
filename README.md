@@ -1,26 +1,22 @@
-# LAN-SSH
+# Cron Key Refresher
 
-https://github.com/lan-ssh
+This project uses a Cloudflare Worker to run a container on a cron schedule. The container uses `git` to clone a repository, effectively refreshing the SSH keys.
 
-A *public* SSH Key for access to your LAN devices that take GitHub user accounts to authenticate over SSH.
+## Setup
 
-## Usage
+1.  **Install Dependencies:**
+    ```bash
+    npm install
+    ```
 
-The keys can be found underneath the [keys](./keys) directory.
+2.  **Deploy the Worker:**
+    ```bash
+    npm run deploy
+    ```
 
-The public keys have been pre-installed into the [lan-ssh GitHub account](https://github.com/lan-ssh). When you set up a device that supports GitHub user accounts for SSH authentication, you can use the username `lan-ssh` to log in with either of the keys in this repo.
+## How it Works
 
-## Software/Hardware that supports GitHub user accounts for SSH authentication
-
-* [comma.ai Devices](https://comma.ai/)
-* Ubuntu Installer
-* I'm sure there are others, please open an issue or PR to add to this list!
-
-## Design
-
-* `keys/id_ed25519` - ED25519 Private Key (shared)
-* `keys/id_ed25519.pub` - ED25519 Public Key
-* `keys/id_rsa` - RSA Private Key (shared)
-* `keys/id_rsa.pub` - RSA Public Key
-
-This repo will also periodically use the keys to keep them active on GitHub.
+-   The `wrangler.toml` file is configured to run the worker on a cron schedule (`0 0 * * *` - every day at midnight UTC).
+-   When the cron trigger fires, the `scheduled` handler in `src/index.ts` is executed.
+-   The worker starts the container defined in the `Dockerfile`.
+-   The `entrypoint.sh` script in the container uses the SSH keys baked into the image to clone the specified repository.
