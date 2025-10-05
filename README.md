@@ -1,3 +1,8 @@
+# Aborted
+
+> [!NOTE]
+> This project has been aborted since GitHub unverifies or removes SSH keys that have their private keys publicly available. I am unable to find an API to prevent this from happening. As such, this project is mothballed and a testament to the futility of trying to share SSH keys publicly. Hah!
+
 # LAN-SSH
 
 https://github.com/lan-ssh
