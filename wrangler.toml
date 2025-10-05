@@ -1,0 +1,17 @@
+name = "cron-key-refresher"
+main = "src/index.ts"
+compatibility_date = "2023-10-30"
+
+triggers = { crons = ["0 0 * * *"] } # Runs every day at midnight UTC
+
+[durable_objects]
+bindings = [
+  { name = "CRON_CONTAINER", class_name = "CronContainer" }
+]
+
+[[migrations]]
+tag = "v1"
+new_classes = ["CronContainer"]
+
+[containers]
+main = { image = "./Dockerfile", class_name = "CronContainer" }
